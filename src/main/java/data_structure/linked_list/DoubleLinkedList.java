@@ -7,22 +7,31 @@ import java.util.ListIterator;
 
 public class DoubleLinkedList<E> implements List<E> {
 
+	private class Node<T> {
+		private T value;
+		private Node<T> next;
+		private Node<T> prev;
+		public T getValue() { return this.value; }
+		public void setValue(T value) { this.value = value; }
+	}
+	
+	private Node<E> head;
+	private Node<E> tail;
+	private int size = 0;
+	
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return size;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.size() == 0;
 	}
 
 	@Override
 	public boolean contains(Object o) {
-		// TODO Auto-generated method stub
-		return false;
+		return this.indexOf(o) != -1;
 	}
 
 	@Override
@@ -33,8 +42,15 @@ public class DoubleLinkedList<E> implements List<E> {
 
 	@Override
 	public Object[] toArray() {
-		// TODO Auto-generated method stub
-		return null;
+		Iterator<E> it = this.iterator();
+		int idx = 0;
+		Object[] array = new Object[this.size()];
+		while(it.hasNext()) {
+			E next = it.next();
+			array[idx] = next;
+			idx++;
+		}
+		return array;
 	}
 
 	@Override
