@@ -11,7 +11,7 @@ public interface PositionalList<E> extends Iterable<E> {
 	Position<E> last();
 	Position<E> before(Position<E> p) throws IllegalArgumentException;
 	Position<E> after(Position<E> p) throws IllegalArgumentException;
-	Position<E> addFirst(Position<E> p);
+	Position<E> addFirst(E e);
 	void moveFirst(Position<E> p) throws IllegalArgumentException;
 	void moveLast(Position<E> p) throws IllegalArgumentException;
 	Position<E> addLast(E e);
