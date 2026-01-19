@@ -176,14 +176,8 @@ class LinkedPositionalListTest {
 		@Test
 		@DisplayName("addFirst with element to empty list")
 		void testAddFirstToEmptyList() {
-			// Note: Interface has addFirst(Position<E> p) not addFirst(E e)
-			// This seems like a potential design issue, but testing as-is
-			Position<String> existing = uat.addLast("existing");
 			LinkedPositionalList<String> newList = new LinkedPositionalList<>();
-			Position<String> p = newList.addFirst(existing);
-
-			// The behavior of addFirst(Position) is unclear from the interface
-			// This test may need adjustment based on actual implementation
+			Position<String> p = newList.addFirst("dummy");
 			assertNotNull(p);
 		}
 	}
@@ -1019,7 +1013,7 @@ class LinkedPositionalListTest {
 			// Modify
 			Position<String> current = uat.first();
 			while (current != null) {
-				uat.set(current, uat.set(current, current.getElement() + "_modified"));
+				uat.set(current, current.getElement() + "_modified");
 				current = uat.after(current);
 			}
 
