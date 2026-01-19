@@ -239,17 +239,19 @@ public class LinkedPositionalList<E extends Comparable<? super E>> implements Po
 
 	@Override
 	public void sort() {
+		// insertion sort
 		Position<E> marker = this.first();
-		while( marker != this.last() ) {
-		    Position<E> pivot = this.after( marker );
+		while(marker != this.last()) {
+		    Position<E> pivot = this.after(marker);
 		    E value = pivot.getElement();
-		    if( value.compareTo(marker.getElement()) > 0 )
-			marker = pivot;
-		    else {
-			Position<E> walk = marker;
-			while( walk != this.first() && value.compareTo(this.before( walk ).getElement()) < 0 )
-			    walk = this.before( walk );
-			this.moveBefore( walk, pivot );
+		    if(value.compareTo(marker.getElement()) > 0) {
+		    	marker = pivot;
+		    } else {
+		    	Position<E> walker = marker;
+		    	while(walker != this.first() && value.compareTo(this.before(walker).getElement()) < 0) {
+		    		walker = this.before(walker);
+		    	}
+		    	this.moveBefore(walker, pivot);
 		    }
 		}
 	}
