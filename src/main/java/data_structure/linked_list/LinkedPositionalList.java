@@ -4,18 +4,20 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class LinkedPositionalList<E extends Comparable<? super E>> implements PositionalList<E> {
-	
+
 	protected class Node implements Position<E> {
 		private E element;
 		private Node prev;
 		private Node next;
 		private Object container; // the containing list
+
 		public Node(E element, Node prev, Node next) {
 			this.element = element;
 			this.prev = prev;
 			this.next = next;
 			this.container = LinkedPositionalList.this;
 		}
+
 		@Override
 		public E getElement() throws IllegalStateException {
 			if (this.next == null) {
@@ -23,23 +25,44 @@ public class LinkedPositionalList<E extends Comparable<? super E>> implements Po
 			}
 			return this.element;
 		}
-		public Node getPrev() { return this.prev; }
-		public Node getNext() { return this.next; }
-		public Object getContainer() { return this.container; }
-		public void setElement(E e) { this.element = e; }
-		public void setPrev(Node prev) { this.prev = prev; }
-		public void setNext(Node next) { this.next= next; }
+
+		public Node getPrev() {
+			return this.prev;
+		}
+
+		public Node getNext() {
+			return this.next;
+		}
+
+		public Object getContainer() {
+			return this.container;
+		}
+
+		public void setElement(E e) {
+			this.element = e;
+		}
+
+		public void setPrev(Node prev) {
+			this.prev = prev;
+		}
+
+		public void setNext(Node next) {
+			this.next = next;
+		}
+
 		@Override
 		public String toString() {
 			return "Position(element = " + this.element + " )";
 		}
 	}
-	
+
 	protected class PositionIterable implements Iterable<Position<E>> {
 		@Override
-		public Iterator<Position<E>> iterator() { return new PositionIterator(); }
+		public Iterator<Position<E>> iterator() {
+			return new PositionIterator();
+		}
 	}
-	
+
 	protected class PositionIterator implements Iterator<Position<E>> {
 		private Node current = getHead();
 		private Node last = null;
@@ -63,6 +86,7 @@ public class LinkedPositionalList<E extends Comparable<? super E>> implements Po
 			}
 			return p;
 		}
+
 		@Override
 		public void remove() throws NoSuchElementException {
 			if (this.last == null) {
@@ -71,22 +95,28 @@ public class LinkedPositionalList<E extends Comparable<? super E>> implements Po
 			LinkedPositionalList.this.remove(position(this.last));
 			this.last = null;
 		}
-		
+
 	}
-	
+
 	protected class ElementIterator implements Iterator<E> {
 		Iterator<Position<E>> positionIt = new PositionIterator();
-		
+
 		@Override
-		public boolean hasNext() { return this.positionIt.hasNext(); }
-		
+		public boolean hasNext() {
+			return this.positionIt.hasNext();
+		}
+
 		@Override
-		public E next() throws NoSuchElementException { return this.positionIt.next().getElement(); }
-		
+		public E next() throws NoSuchElementException {
+			return this.positionIt.next().getElement();
+		}
+
 		@Override
-		public void remove() throws NoSuchElementException { this.positionIt.remove(); }
+		public void remove() throws NoSuchElementException {
+			this.positionIt.remove();
+		}
 	}
-	
+
 	private int size = 0;
 	private Node header;
 	private Node trailer;
@@ -96,7 +126,7 @@ public class LinkedPositionalList<E extends Comparable<? super E>> implements Po
 		this.trailer = new Node(null, this.header, null);
 		this.header.setNext(this.trailer);
 	}
-	
+
 	@Override
 	public int size() {
 		return this.size;
@@ -204,19 +234,19 @@ public class LinkedPositionalList<E extends Comparable<? super E>> implements Po
 	@Override
 	public E remove(Position<E> p) throws IllegalArgumentException {
 		Node node = this.validate(p);
-		
+
 		node.getPrev().setNext(node.getNext());
 		node.getNext().setPrev(node.getPrev());
-		
+
 		E curr = node.getElement();
-		
+
 		node.setPrev(null);
 		node.setNext(null);
-		
+
 		node.setElement(null);
-		
+
 		this.size--;
-		
+
 		return curr;
 	}
 
@@ -224,16 +254,16 @@ public class LinkedPositionalList<E extends Comparable<? super E>> implements Po
 	public Position<E> moveBefore(Position<E> p, Position<E> toMove) throws IllegalArgumentException {
 		Node target = this.validate(p);
 		Node moving = this.validate(toMove);
-		
+
 		moving.getPrev().setNext(moving.getNext());
 		moving.getNext().setPrev(moving.getPrev());
-		
+
 		moving.setPrev(target.getPrev());
 		moving.setNext(target);
-		
+
 		target.getPrev().setNext(moving);
 		target.setPrev(moving);
-		
+
 		return moving;
 	}
 
@@ -241,18 +271,18 @@ public class LinkedPositionalList<E extends Comparable<? super E>> implements Po
 	public void sort() {
 		// insertion sort
 		Position<E> marker = this.first();
-		while(marker != this.last()) {
-		    Position<E> pivot = this.after(marker);
-		    E value = pivot.getElement();
-		    if(value.compareTo(marker.getElement()) > 0) {
-		    	marker = pivot;
-		    } else {
-		    	Position<E> walker = marker;
-		    	while(walker != this.first() && value.compareTo(this.before(walker).getElement()) < 0) {
-		    		walker = this.before(walker);
-		    	}
-		    	this.moveBefore(walker, pivot);
-		    }
+		while (marker != this.last()) {
+			Position<E> pivot = this.after(marker);
+			E value = pivot.getElement();
+			if (value.compareTo(marker.getElement()) > 0) {
+				marker = pivot;
+			} else {
+				Position<E> walker = marker;
+				while (walker != this.first() && value.compareTo(this.before(walker).getElement()) < 0) {
+					walker = this.before(walker);
+				}
+				this.moveBefore(walker, pivot);
+			}
 		}
 	}
 
@@ -265,20 +295,20 @@ public class LinkedPositionalList<E extends Comparable<? super E>> implements Po
 	public Iterable<Position<E>> positions() {
 		return new PositionIterable();
 	}
-	
+
 	@Override
-    public String toString() {
-		if( this.isEmpty() ) return "[]";
+	public String toString() {
+		if (this.isEmpty())
+			return "[]";
 		StringBuilder sb = new StringBuilder("[");
 		Node current = this.getHead();
-		while( current != this.getTail() ) {
+		while (current != this.getTail()) {
 			sb.append(current.getElement()).append(",");
-		    current = current.getNext();
+			current = current.getNext();
 		}
 		sb.append(current.getElement()).append("]");
 		return sb.toString();
-    }
-
+	}
 
 	private Position<E> position(Node node) {
 		if (node == this.header || node == this.trailer) {
@@ -295,9 +325,13 @@ public class LinkedPositionalList<E extends Comparable<? super E>> implements Po
 		return node;
 	}
 
-	private Node getHead() { return this.header.getNext(); }
+	private Node getHead() {
+		return this.header.getNext();
+	}
 
-	private Node getTail() { return this.trailer.getPrev();}
+	private Node getTail() {
+		return this.trailer.getPrev();
+	}
 
 	private Node validate(Position<E> p) throws IllegalArgumentException {
 		if (!(p instanceof Node)) {
@@ -314,4 +348,3 @@ public class LinkedPositionalList<E extends Comparable<? super E>> implements Po
 	}
 
 }
-
