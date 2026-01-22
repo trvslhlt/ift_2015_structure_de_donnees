@@ -1,0 +1,23 @@
+package ca.umontreal.IFT2015.adt.pqueues;
+
+import java.util.Comparator;
+
+/**
+* StringLengthComparator is class to compare the lengths of two Strings
+* 
+* Based on Goodrich, Tamassia, Goldwasser
+*
+* @author      Francois Major
+* @version     1.0
+* @since       1.0
+*/
+
+public class StringLengthComparator implements Comparator<String> {
+    // compare two strings according to their lengths
+    @Override
+    public int compare( String a, String b ) {
+	if( a.length() < b.length() ) return -1;
+	else if( a.length() == b.length() ) return 0;
+	else return 1;
+    }
+}
