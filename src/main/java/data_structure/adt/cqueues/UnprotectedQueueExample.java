@@ -31,9 +31,11 @@ public class UnprotectedQueueExample {
 		public void run() {
 			for (int i = 0; i < elementCount; i++) {
 				if (!queue.isEmpty()) {
-					// this typically exits with an exception because `queue.remove()` 
-//					 gets called in this thread after it is called in another thread
-//					queue.remove();
+					// this typically exits with an exception because `queue.remove()` '
+					// gets called in this thread after it is called in another thread
+					// queue.remove();
+					
+					// may exit with elements in the queue because consumers finish before producers 
 					queue.poll();
 				}
 			}
