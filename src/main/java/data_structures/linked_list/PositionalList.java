@@ -1,4 +1,4 @@
-package data_structure.linked_list;
+package data_structures.linked_list;
 
 import java.lang.IllegalArgumentException;
 import java.lang.Iterable;

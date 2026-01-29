@@ -1,4 +1,4 @@
-package data_structure.adt.cqueues;
+package data_structures.adt.cqueues;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;

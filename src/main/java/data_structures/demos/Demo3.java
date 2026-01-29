@@ -1,4 +1,4 @@
-package data_structure.demos;
+package data_structures.demos;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
