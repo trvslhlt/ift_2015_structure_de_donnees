@@ -7,6 +7,8 @@ import java.util.Iterator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import data_structures.linked_list.SingleIntegerLinkedList;
+
 class SingleIntegerLinkedListTest {
 	
 	private SingleIntegerLinkedList uat;
