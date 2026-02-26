@@ -31,32 +31,37 @@ import java.util.Scanner;
 //
 public class SimpleFastaReader {
 
-    // attributes
-    private String header = "";   // buffer for header
-    private String sequence = ""; // buffer for sequence
+	// attributes
+	private String header = ""; // buffer for header
+	private String sequence = ""; // buffer for sequence
 
-    // getters
-    public String getHeader() { return this.header; }
-    public String getSequence() { return this.sequence; }
-
-    // constructor based on a filename with full path
-    public SimpleFastaReader( String fileName ) {
-	try {
-	    File input = new File( fileName );
-	    Scanner reader = new Scanner( input );
-	    this.header = reader.nextLine(); // read header
-	    System.out.println( "header: " + this.header );
-	    // read the sequence
-	    String line = reader.nextLine();
-	    while( reader.hasNextLine() ) {
-		this.sequence += line;
-		line = reader.nextLine();
-	    }
-	    // line contains last sequence line
-	    this.sequence += line;
-	} catch( FileNotFoundException e ) {
-	    System.out.println( "Something's wrong, file not found!" );
-	    e.printStackTrace();
+	// getters
+	public String getHeader() {
+		return this.header;
 	}
-    }
+
+	public String getSequence() {
+		return this.sequence;
+	}
+
+	// constructor based on a filename with full path
+	public SimpleFastaReader(String fileName) {
+		try {
+			File input = new File(fileName);
+			Scanner reader = new Scanner(input);
+			this.header = reader.nextLine(); // read header
+			System.out.println("header: " + this.header);
+			// read the sequence
+			String line = reader.nextLine();
+			while (reader.hasNextLine()) {
+				this.sequence += line;
+				line = reader.nextLine();
+			}
+			// line contains last sequence line
+			this.sequence += line;
+		} catch (FileNotFoundException e) {
+			System.out.println("Something's wrong, file not found!");
+			e.printStackTrace();
+		}
+	}
 }
