@@ -6,7 +6,6 @@ import java.util.Map;
 import ca.umontreal.IFT2015.adt.list.LinkedPositionalList;
 import ca.umontreal.IFT2015.adt.list.Position;
 import ca.umontreal.IFT2015.adt.list.PositionalList;
-import ca.umontreal.IFT2015.graphs.AdjacencyMapGraph.InnerVertex;
 
 public class AdjacencyMapGraph<V, E> implements Graph<V, E> {
 	
@@ -111,7 +110,7 @@ public class AdjacencyMapGraph<V, E> implements Graph<V, E> {
 
 	@Override
 	public int outDegree(Vertex<V> v) throws IllegalArgumentException {
-		InnerVertex<V> vert = this.validate(v);
+		InnerVertex vert = this.validate(v);
 		return 0;
 	}
 

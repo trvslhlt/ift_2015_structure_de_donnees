@@ -2,9 +2,6 @@ package ca.umontreal.IFT2015.trees;
 
 import java.lang.IllegalStateException;
 import java.lang.IllegalArgumentException;
-import java.util.NoSuchElementException;
-import java.util.Iterator;
-import java.lang.Iterable;
 
 import ca.umontreal.IFT2015.adt.list.Position;
 
